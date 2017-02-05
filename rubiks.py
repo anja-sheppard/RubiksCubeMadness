@@ -107,7 +107,16 @@ class Cube(object):
                 for k in range(len(self.cube[0][0])):
                     self.cube[i][j][k] = Pieces(self.cube[i][j][k])
     def L(self):
-        
+        for i in range(len(self.cube)):
+            tempfront = self.cube[0][i][0].sides["front"]
+            self.cube[0][i][0].sides["front"] = self.cube[2-i][0][0].sides["top"]
+            tempbottom = self.cube[0][2-i][0].sides["bottom"]
+            self.cube[0][2-i][0].sides["bottom"] = tempfront
+            tempback = self.cube[2][2-i][0].sides["back"]
+            self.cube[2][2-i][0].sides["back"] = tempbottom
+            temptop = self.cube[2][i][0].sides["top"]
+            self.cube[2][i][0].sides["top"] = tempback
+
         self.printy()
 
 class Pieces(object):

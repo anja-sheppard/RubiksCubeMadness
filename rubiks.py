@@ -1,4 +1,5 @@
 import pprint
+import copy
 class Cube(object):
     colors = {"top": "red", "back": "green", "front": "blue", "right": "white", "bottom": "orange", "left": "yellow"}
     def __init__(self):
@@ -107,15 +108,37 @@ class Cube(object):
                 for k in range(len(self.cube[0][0])):
                     self.cube[i][j][k] = Pieces(self.cube[i][j][k])
     def L(self):
-        for i in range(len(self.cube)):
-            tempfront = self.cube[0][i][0].sides["front"]
-            self.cube[0][i][0].sides["front"] = self.cube[2-i][0][0].sides["top"]
-            tempbottom = self.cube[0][2-i][0].sides["bottom"]
-            self.cube[0][2-i][0].sides["bottom"] = tempfront
-            tempback = self.cube[2][2-i][0].sides["back"]
-            self.cube[2][2-i][0].sides["back"] = tempbottom
-            temptop = self.cube[2][i][0].sides["top"]
-            self.cube[2][i][0].sides["top"] = tempback
+        temptopList = []
+        tempfrontList = []
+        tempbottomList = []
+        tempbackList = []
+        for i in range(3):
+            temptop = Pieces(list(self.cube[2-i][0][0].sides.keys()))
+            temptop.sides = copyDict(self.cube[2-i][0][0].sides)
+            temptopList.append(temptop)
+            tempfront = Pieces(list(self.cube[0][i][0].sides.keys()))
+            tempfront.sides = copyDict(self.cube[0][i][0].sides)
+            tempfrontList.append(tempfront)
+            tempbottom = Pieces(list(self.cube[i][2][0].sides.keys()))
+            tempbottom.sides = copyDict(self.cube[i][2][0].sides)
+            tempbottomList.append(tempbottom)
+            tempback = Pieces(list(self.cube[2][2-i][0].sides.keys()))
+            tempback.sides = copyDict(self.cube[2][2-i][0].sides)
+            tempbackList.append(tempback)
+        for i in range(3):
+            self.cube[0][i][0].sides["top"] = temptopList[i].sides["back"]
+            self.cube[0][i][0].sides["front"] = temptopList[i].sides["top"]
+            self.cube[0][i][0].sides["left"] = temptopList[i].sides["left"]
+            print(tempbackList[i].sides)
+            self.cube[i][2][0].sides["bottom"] = tempfrontList[i].sides["front"]
+            self.cube[i][2][0].sides["back"] = tempfrontList[i].sides["bottom"]
+            self.cube[i][2][0].sides["left"] = tempfrontList[i].sides["left"]
+            self.cube[2][i][0].sides["back"] = tempbottomList[i].sides["bottom"]
+            self.cube[2][i][0].sides["bottom"] = tempbottomList[i].sides["front"]
+            self.cube[2][i][0].sides["left"] = tempbottomList[i].sides["left"]
+            self.cube[2-i][0][0].sides["top"] = tempbackList[i].sides["back"]
+            self.cube[2-i][0][0].sides["back"] = tempbackList[i].sides["bottom"]
+            self.cube[2-i][0][0].sides["left"] = tempbackList[i].sides["left"]
 
         self.printy()
 
@@ -141,8 +164,14 @@ def play(c):
     if i == "L" or "l":
         c.L()
 
+def copyDict(dict1):
+    dict2 = {}
+    for i in list(dict1.keys()):
+        dict2[i] = dict1[i]
+    return dict2
+
 
 c = Cube()
 c.generate()
-c.printy
+c.printy()
 play(c)

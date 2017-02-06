@@ -116,12 +116,15 @@ class Cube(object):
             temptop = Pieces(list(self.cube[2-i][0][0].sides.keys()))
             temptop.sides = copyDict(self.cube[2-i][0][0].sides)
             temptopList.append(temptop)
+
             tempfront = Pieces(list(self.cube[0][i][0].sides.keys()))
             tempfront.sides = copyDict(self.cube[0][i][0].sides)
             tempfrontList.append(tempfront)
+
             tempbottom = Pieces(list(self.cube[i][2][0].sides.keys()))
             tempbottom.sides = copyDict(self.cube[i][2][0].sides)
             tempbottomList.append(tempbottom)
+
             tempback = Pieces(list(self.cube[2][2-i][0].sides.keys()))
             tempback.sides = copyDict(self.cube[2][2-i][0].sides)
             tempbackList.append(tempback)
@@ -129,18 +132,21 @@ class Cube(object):
             self.cube[0][i][0].sides["top"] = temptopList[i].sides["back"]
             self.cube[0][i][0].sides["front"] = temptopList[i].sides["top"]
             self.cube[0][i][0].sides["left"] = temptopList[i].sides["left"]
-            print(tempfrontList[i].sides)
+
             self.cube[i][2][0].sides["bottom"] = tempfrontList[i].sides["front"]
             self.cube[i][2][0].sides["back"] = tempfrontList[i].sides["bottom"]
             self.cube[i][2][0].sides["left"] = tempfrontList[i].sides["left"]
+
             self.cube[2][2-i][0].sides["back"] = tempbottomList[i].sides["bottom"]
             self.cube[2][2-i][0].sides["bottom"] = tempbottomList[i].sides["front"]
             self.cube[2][2-i][0].sides["left"] = tempbottomList[i].sides["left"]
+
             self.cube[2-i][0][0].sides["top"] = tempbackList[i].sides["back"]
             self.cube[2-i][0][0].sides["back"] = tempbackList[i].sides["bottom"]
             self.cube[2-i][0][0].sides["left"] = tempbackList[i].sides["left"]
 
         self.printy()
+        
 
     def R(self):
         temptopList = []
@@ -151,32 +157,110 @@ class Cube(object):
             temptop = Pieces(list(self.cube[2-i][0][2].sides.keys()))
             temptop.sides = copyDict(self.cube[2-i][0][2].sides)
             temptopList.append(temptop)
+
             tempfront = Pieces(list(self.cube[0][i][2].sides.keys()))
             tempfront.sides = copyDict(self.cube[0][i][2].sides)
             tempfrontList.append(tempfront)
+
             tempbottom = Pieces(list(self.cube[i][2][2].sides.keys()))
             tempbottom.sides = copyDict(self.cube[i][2][2].sides)
             tempbottomList.append(tempbottom)
+
             tempback = Pieces(list(self.cube[2][2-i][2].sides.keys()))
             tempback.sides = copyDict(self.cube[2][2-i][2].sides)
             tempbackList.append(tempback)
         for i in range(3):
-            print(tempfrontList[i].sides)
             self.cube[0][i][2].sides["top"] = tempbottomList[i].sides["front"]
             self.cube[0][i][2].sides["front"] = tempbottomList[i].sides["bottom"]
             self.cube[0][i][2].sides["right"] = tempbottomList[i].sides["right"]
+
             self.cube[i][2][2].sides["bottom"] = tempbackList[i].sides["back"]
             self.cube[i][2][2].sides["back"] = tempbackList[i].sides["top"]
             self.cube[i][2][2].sides["right"] = tempbackList[i].sides["right"]
+
             self.cube[2][2-i][2].sides["back"] = temptopList[i].sides["top"]
             self.cube[2][2-i][2].sides["bottom"] = temptopList[i].sides["back"]
             self.cube[2][2-i][2].sides["right"] = temptopList[i].sides["right"]
+
             self.cube[2-i][0][2].sides["top"] = tempfrontList[i].sides["front"]
             self.cube[2-i][0][2].sides["back"] = tempfrontList[i].sides["top"]
             self.cube[2-i][0][2].sides["right"] = tempfrontList[i].sides["right"]
 
         self.printy()
 
+    def U(self):
+        tempfrontList = []
+        templeftList = []
+        temprightList = []
+        tempbackList = []
+        for i in range(3):
+            tempfront = Pieces(list(self.cube[0][0][i].sides.keys()))
+            tempfront.sides = copyDict(self.cube[0][0][i].sides)
+            tempfrontList.append(tempfront)
+            
+            templeft = Pieces(list(self.cube[2-i][0][0].sides.keys()))
+            templeft.sides = copyDict(self.cube[2-i][0][0].sides)
+            templeftList.append(templeft)
+            
+            tempright = Pieces(list(self.cube[2-i][0][2].sides.keys()))
+            tempright.sides = copyDict(self.cube[2-i][0][2].sides)
+            temprightList.append(tempright)
+            
+            tempback = Pieces(list(self.cube[2][0][i].sides.keys()))
+            tempback.sides = copyDict(self.cube[2][0][i].sides)
+            tempbackList.append(tempback)
+        for i in range(3):
+            print(tempfrontList[i].sides)
+            self.cube[0][0][i].sides["front"] = temprightList[i].sides["right"]
+            self.cube[0][0][i].sides["top"] = temprightList[i].sides["top"]
+
+            self.cube[2-i][0][0].sides["left"] = tempfrontList[i].sides["front"]
+            self.cube[2-i][0][0].sides["top"] = tempfrontList[i].sides["top"]
+
+            self.cube[2][0][i].sides["back"] = templeftList[i].sides["left"]
+            self.cube[2][0][i].sides["top"] = templeftList[i].sides["top"]
+
+            self.cube[2-i][0][2].sides["right"] = tempbackList[i].sides["back"]
+            self.cube[2-i][0][2].sides["top"] = tempbackList[i].sides["top"]
+
+        self.printy()
+
+    def D(self):
+        tempfrontList = []
+        templeftList = []
+        temprightList = []
+        tempbackList = []
+        for i in range(3):
+            tempfront = Pieces(list(self.cube[0][2][i].sides.keys()))
+            tempfront.sides = copyDict(self.cube[0][2][i].sides)
+            tempfrontList.append(tempfront)
+            
+            templeft = Pieces(list(self.cube[2-i][2][0].sides.keys()))
+            templeft.sides = copyDict(self.cube[2-i][2][0].sides)
+            templeftList.append(templeft)
+            
+            tempright = Pieces(list(self.cube[i][2][2].sides.keys()))
+            tempright.sides = copyDict(self.cube[i][2][2].sides)
+            temprightList.append(tempright)
+            
+            tempback = Pieces(list(self.cube[2][2][i].sides.keys()))
+            tempback.sides = copyDict(self.cube[2][2][i].sides)
+            tempbackList.append(tempback)
+        for i in range(3):
+            print(templeftList[i].sides)
+            self.cube[0][2][i].sides["front"] = temprightList[i].sides["right"]
+            self.cube[0][2][i].sides["bottom"] = temprightList[i].sides["bottom"]
+
+            self.cube[2-i][2][0].sides["left"] = tempfrontList[i].sides["front"]
+            self.cube[2-i][2][0].sides["bottom"] = tempfrontList[i].sides["bottom"]
+
+            self.cube[2][0][2-i].sides["back"] = templeftList[i].sides["left"]
+            self.cube[2][0][2-i].sides["bottom"] = templeftList[i].sides["bottom"]
+
+            self.cube[2-i][0][2].sides["right"] = tempbackList[i].sides["back"]
+            self.cube[2-i][0][2].sides["bottom"] = tempbackList[i].sides["bottom"]
+
+        self.printy()
 class Pieces(object):
     def __init__(self, listy):
         keys = ["front", "left", "back", "right", "top", "bottom"]
@@ -196,11 +280,14 @@ class Squares(object):
 
 def play(c):
     i = input("What's your play? ")
-    print(i == "L")
     if i == "L" or i == "l":
         c.L()
     elif i == "R" or i == "r":
         c.R()
+    elif i == "U" or i == "u":
+        c.U()
+    elif i == "D" or i == "d":
+        c.D()
 
 def copyDict(dict1):
     dict2 = {}
@@ -212,6 +299,8 @@ def copyDict(dict1):
 c = Cube()
 c.generate()
 c.printy()
+c.cube[1][0][0].sides["left"]
 solved = False
 while solved == False:
     play(c)
+    

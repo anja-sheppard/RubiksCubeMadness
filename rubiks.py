@@ -22,7 +22,7 @@ class Cube(object):
 
         # left
         for k in range(len(self.cube[0])):
-            print(self.cube[2][k][0].sides["left"], end = "\t")
+            print(self.cube[2-k][0][0].sides["left"], end = "\t")
         print(" ", end = "")
         #front
         for k in range(len(self.cube[0])):
@@ -38,7 +38,7 @@ class Cube(object):
         print("")
         #left
         for k in range(len(self.cube[0])):
-            print(self.cube[1][k][0].sides["left"], end = "\t")
+            print(self.cube[2-k][1][0].sides["left"], end = "\t")
         print(" ", end = "")
         #front
         for k in range(len(self.cube[0])):
@@ -54,7 +54,7 @@ class Cube(object):
         print("")
         #left
         for k in range(len(self.cube[0])):
-            print(self.cube[0][k][0].sides["left"], end = "\t")
+            print(self.cube[2-k][2][0].sides["left"], end = "\t")
         print(" ", end = "")
         #front
         for k in range(len(self.cube[0])):
@@ -146,7 +146,7 @@ class Cube(object):
             self.cube[2-i][0][0].sides["left"] = tempbackList[i].sides["left"]
 
         self.printy()
-        
+
 
     def R(self):
         temptopList = []
@@ -197,15 +197,15 @@ class Cube(object):
             tempfront = Pieces(list(self.cube[0][0][i].sides.keys()))
             tempfront.sides = copyDict(self.cube[0][0][i].sides)
             tempfrontList.append(tempfront)
-            
+
             templeft = Pieces(list(self.cube[2-i][0][0].sides.keys()))
             templeft.sides = copyDict(self.cube[2-i][0][0].sides)
             templeftList.append(templeft)
-            
+
             tempright = Pieces(list(self.cube[2-i][0][2].sides.keys()))
             tempright.sides = copyDict(self.cube[2-i][0][2].sides)
             temprightList.append(tempright)
-            
+
             tempback = Pieces(list(self.cube[2][0][i].sides.keys()))
             tempback.sides = copyDict(self.cube[2][0][i].sides)
             tempbackList.append(tempback)
@@ -213,7 +213,7 @@ class Cube(object):
             print(tempfrontList[i].sides)
             self.cube[0][0][i].sides["front"] = temprightList[i].sides["right"]
             self.cube[0][0][i].sides["top"] = temprightList[i].sides["top"]
-
+            print(c.cube[1][0][0].sides["left"])
             self.cube[2-i][0][0].sides["left"] = tempfrontList[i].sides["front"]
             self.cube[2-i][0][0].sides["top"] = tempfrontList[i].sides["top"]
 
@@ -234,31 +234,31 @@ class Cube(object):
             tempfront = Pieces(list(self.cube[0][2][i].sides.keys()))
             tempfront.sides = copyDict(self.cube[0][2][i].sides)
             tempfrontList.append(tempfront)
-            
+
             templeft = Pieces(list(self.cube[2-i][2][0].sides.keys()))
             templeft.sides = copyDict(self.cube[2-i][2][0].sides)
             templeftList.append(templeft)
-            
+
             tempright = Pieces(list(self.cube[i][2][2].sides.keys()))
             tempright.sides = copyDict(self.cube[i][2][2].sides)
             temprightList.append(tempright)
-            
-            tempback = Pieces(list(self.cube[2][2][i].sides.keys()))
+
+            tempback = Pieces(list(self.cube[2][2][2-i].sides.keys()))
             tempback.sides = copyDict(self.cube[2][2][i].sides)
             tempbackList.append(tempback)
         for i in range(3):
             print(templeftList[i].sides)
-            self.cube[0][2][i].sides["front"] = temprightList[i].sides["right"]
-            self.cube[0][2][i].sides["bottom"] = temprightList[i].sides["bottom"]
+            self.cube[0][2][i].sides["front"] = templeftList[i].sides["left"]
+            self.cube[0][2][i].sides["bottom"] = templeftList[i].sides["bottom"]
 
-            self.cube[2-i][2][0].sides["left"] = tempfrontList[i].sides["front"]
-            self.cube[2-i][2][0].sides["bottom"] = tempfrontList[i].sides["bottom"]
+            self.cube[2-i][2][0].sides["left"] = tempbackList[i].sides["back"]
+            self.cube[2-i][2][0].sides["bottom"] = tempbackList[i].sides["bottom"]
 
-            self.cube[2][0][2-i].sides["back"] = templeftList[i].sides["left"]
-            self.cube[2][0][2-i].sides["bottom"] = templeftList[i].sides["bottom"]
+            self.cube[2][2][2-i].sides["back"] = temprightList[i].sides["right"]
+            self.cube[2][2][2-i].sides["bottom"] = temprightList[i].sides["bottom"]
 
-            self.cube[2-i][0][2].sides["right"] = tempbackList[i].sides["back"]
-            self.cube[2-i][0][2].sides["bottom"] = tempbackList[i].sides["bottom"]
+            self.cube[2-i][2][2].sides["right"] = tempfrontList[i].sides["front"]
+            self.cube[2-i][2][2].sides["bottom"] = tempfrontList[i].sides["bottom"]
 
         self.printy()
 class Pieces(object):
@@ -303,4 +303,3 @@ c.cube[1][0][0].sides["left"]
 solved = False
 while solved == False:
     play(c)
-    

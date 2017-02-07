@@ -81,7 +81,7 @@ class Cube(object):
         print("")
         print("\t\t", end = "\t ")
         for i in range(len(self.cube[0])):
-            print(colorCodes[self.cube[0][2][i].sides["bottom"]] + self.cube[0][2][i].sides["bottom"] + "\x1b[0m", end = "\t")
+            print(colorCodes[self.cube[1][2][i].sides["bottom"]] + self.cube[1][2][i].sides["bottom"] + "\x1b[0m", end = "\t")
         print("")
         print("\t\t", end = "\t ")
         for i in range(len(self.cube[0])):
@@ -273,7 +273,6 @@ class Cube(object):
 
             self.cube[i][2][2].sides["right"] = tempfrontList[i].sides["front"]
             self.cube[i][2][2].sides["bottom"] = tempfrontList[i].sides["bottom"]
-
         return self
 
     def F(self):
@@ -419,6 +418,7 @@ def scramble(c):
 
 
 print("\n" + '\x1b[6;30;42m' + "WELCOME TO RUBIKS.CUBE ! ! !" + '\x1b[0m')
+print("By Anja Sheppard and Sid Hillwig")
 print("\n\nUse your keyboard to move the pieces (\'B\', \'U\', etc.)")
 print("\nNOTE: For pretty colors, a Unix-based operating system is required.\n\n")
 c = Cube()
@@ -432,3 +432,4 @@ while solved == False:
     play(c)
     if c.isSolved(s):
         print("solved!!!!")
+        break
